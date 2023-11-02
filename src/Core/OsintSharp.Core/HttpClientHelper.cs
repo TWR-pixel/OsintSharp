@@ -1,4 +1,6 @@
-﻿namespace OsintSharp.Core;
+﻿using System.Runtime.CompilerServices;
+
+namespace OsintSharp.Core;
 
 public class HttpClientHelper
 {
@@ -16,6 +18,7 @@ public class HttpClientHelper
         Client = new HttpClient();
     }
 
+    [MethodImpl(MethodImplOptions.AggressiveInlining)]
     public async Task<HttpResponseMessage> GetAsync(string url, bool catchException = true)
     {
         if (string.IsNullOrWhiteSpace(url)) throw new ArgumentNullException(nameof(url));

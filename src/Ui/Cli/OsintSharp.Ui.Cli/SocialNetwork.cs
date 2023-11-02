@@ -45,12 +45,12 @@ internal class SocialNetwork
     {
         try
         {
-            var r = await _httpClientHelper.GetAsync(url);
-            await Console.Out.WriteLineAsync($"[{url}] {r.StatusCode}");
+            var msg = await _httpClientHelper.GetAsync(url);
+            ConsoleLogger.LogLine(url, msg);
         }
         catch (Exception ex)
         {
-            await Console.Out.WriteLineAsync(ex.Message);
+            Console.Out.WriteLine(ex.Message);
         }
     }
 }
