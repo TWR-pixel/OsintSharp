@@ -1,4 +1,5 @@
 ﻿using OsintSharp.Core;
+using System.Collections.Immutable;
 
 namespace OsintSharp.Ui.Cli;
 
@@ -23,7 +24,7 @@ internal class SocialNetwork
     public async Task StartAnalysisAsync(HttpMethods httpMethod, IEnumerable<string> urls, bool catchException = true)
     {
         var urlsCount = urls.Count();
-        var urlsArray = urls.ToArray();
+        var urlsArray = urls.ToImmutableArray();
 
         if (httpMethod == HttpMethods.GET)
         {

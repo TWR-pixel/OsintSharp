@@ -13,11 +13,13 @@ Console.ResetColor();
 Console.Write("Enter username: ");
 var username = Console.ReadLine(); 
 
+var httpClientHelperFactory = new HttpClientHelperFactory();
+
 var userForSearch = new UserForSearch(username);
 
 var urlsDictionary = await JsonUrlDeserialization.DeserializeAync("Resources\\urls.json");
 var urls = new HashSet<string>();
-var socialNetwork = new SocialNetwork(new HttpClientHelperFactory().Create());
+var socialNetwork = new SocialNetwork(httpClientHelperFactory.Create());
 
 foreach (var i in urlsDictionary)
 {

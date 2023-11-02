@@ -29,6 +29,7 @@ internal static class ConsoleLogger
                 Console.Out.WriteLine($"[{url}]    {msg.StatusCode}");
                 Console.ResetColor();
                 break;
+            
             default:
                 break;
         }

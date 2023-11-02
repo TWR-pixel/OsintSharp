@@ -1,8 +1,5 @@
-﻿using OsintSharp.Core;
-using OsintSharp.Core.Interfaces;
+﻿using OsintSharp.Core.Interfaces;
 using System.Net;
-using System.Net.Http.Headers;
-using System.Security.Authentication;
 
 namespace OsintSharp.Core.Factories;
 
@@ -20,16 +17,7 @@ public class HttpClientHelperFactory : IFactory<HttpClientHelper>
         ServicePointManager.Expect100Continue = true;
         ServicePointManager.SecurityProtocol = SecurityProtocolType.Tls12;
 
-        var handler = new HttpClientHandler
-        {
-            ClientCertificateOptions = ClientCertificateOption.Automatic,
-            UseDefaultCredentials = false,
-            PreAuthenticate = false,
-            UseProxy = false,
-        };
-        handler.ServerCertificateCustomValidationCallback = (sender, cert, chain, sslPolicyErrors) => { return true; };
-        
-        var helper = new HttpClientHelper(handler);
+        var helper = new HttpClientHelper(new HttpClientHandlerFactory().Create());
 
         var userAgent = @"Mozilla/5.0 (Windows; U; Windows NT 5.1; en-US; rv:1.8.0.4) Gecko/20060508 Firefox/1.5.0.4";
         helper.Client.DefaultRequestHeaders.Add("User-Agent", userAgent);
