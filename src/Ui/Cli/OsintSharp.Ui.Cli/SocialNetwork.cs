@@ -1,11 +1,12 @@
 ﻿using OsintSharp.Core;
-using System.Collections.Immutable;
+using System.Collections.Concurrent;
 
 namespace OsintSharp.Ui.Cli;
 
 internal class SocialNetwork
 {
     private readonly HttpClientHelper _httpClientHelper;
+    private object _consoleLoggerLocker = new();
 
     public SocialNetwork(HttpClientHelper httpClientHelper)
     {
@@ -21,37 +22,47 @@ internal class SocialNetwork
     /// <param name="urls">urls list social networks</param>
     /// <returns>http response message list with codes</returns>
     /// <exception cref="HttpMethodNotSupportedException"></exception>
-    public async Task StartAnalysisAsync(HttpMethods httpMethod, IEnumerable<string> urls, bool catchException = true)
+    public async Task StartAnalysisAsync(HttpMethods httpMethod, ConcurrentBag<string> urls, bool catchException = true)
     {
         var urlsCount = urls.Count();
-        var urlsArray = urls.ToImmutableArray();
+        var urlsArray = urls.ToArray();
 
         if (httpMethod == HttpMethods.GET)
         {
-            for (int i = urlsCount; i > 0; i--)
+            for (int i = urlsCount; i > 0; Interlocked.Decrement(ref i))
             {
-                var th = new Thread(async () =>
+                using (var th = new Task(async () =>
                 {
-                    await PrintResultAsync(urlsArray[i]);
-                });
-                th.Start();
-
+                    await PrintResult(urlsArray[i - 1]);
+                }))
+                {
+                    th.Start();
+                    th.Wait(500);
+                }
             }
         }
 
 
     }
 
-    private async Task PrintResultAsync(string url)
+    private async Task PrintResult(string url)
     {
         try
         {
             var msg = await _httpClientHelper.GetAsync(url);
-            ConsoleLogger.LogLine(url, msg);
+
+            lock (_consoleLoggerLocker)
+            {
+                ConsoleLogger.LogLine(url, msg);
+            }
+        }
+        catch (TimeoutException ex)
+        {
+            ConsoleLogger.LogError($"[{url}]   {ex.Message}");
         }
         catch (Exception ex)
         {
-            Console.Out.WriteLine(ex.Message);
+            ConsoleLogger.LogError($"[{url}]    {ex.Message}");
         }
     }
 }
