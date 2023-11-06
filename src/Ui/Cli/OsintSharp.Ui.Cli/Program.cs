@@ -20,7 +20,7 @@ var userForSearch = new UserForSearch(username);
 
 var urlsDictionary = await JsonUrlDeserialization.DeserializeAync("Resources\\urls.json");
 var urls = new ConcurrentBag<string>();
-var socialNetwork = new SocialNetwork(httpClientHelperFactory.Create());
+var socialNetwork = new UrlsScanner(httpClientHelperFactory.Create());
 
 foreach (var i in urlsDictionary)
 {

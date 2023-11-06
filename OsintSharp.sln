@@ -32,7 +32,9 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "OsintSharp.Core.Json.Tests"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Tests", "Tests", "{43A3C5CB-F5C6-46F1-945C-F874BBFC194B}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "OsintSharp.Core.Tests", "src\Core\OsintSharp.Core.Tests\OsintSharp.Core.Tests.csproj", "{003E74CA-5F3A-45F2-AC6B-D49D4EBD4BC6}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "OsintSharp.Core.Tests", "src\Core\OsintSharp.Core.Tests\OsintSharp.Core.Tests.csproj", "{003E74CA-5F3A-45F2-AC6B-D49D4EBD4BC6}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "OsintSharp.Ui.Cli.ArgsParser", "src\Ui\Cli\OsintSharp.Ui.Cli.ArgsParser\OsintSharp.Ui.Cli.ArgsParser.csproj", "{630EE27E-24EC-4264-87E2-77385D110B0F}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -64,6 +66,10 @@ Global
 		{003E74CA-5F3A-45F2-AC6B-D49D4EBD4BC6}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{003E74CA-5F3A-45F2-AC6B-D49D4EBD4BC6}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{003E74CA-5F3A-45F2-AC6B-D49D4EBD4BC6}.Release|Any CPU.Build.0 = Release|Any CPU
+		{630EE27E-24EC-4264-87E2-77385D110B0F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{630EE27E-24EC-4264-87E2-77385D110B0F}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{630EE27E-24EC-4264-87E2-77385D110B0F}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{630EE27E-24EC-4264-87E2-77385D110B0F}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -82,6 +88,7 @@ Global
 		{2543DBF0-740C-4739-A175-7A952DB69E19} = {43A3C5CB-F5C6-46F1-945C-F874BBFC194B}
 		{43A3C5CB-F5C6-46F1-945C-F874BBFC194B} = {4A52AB44-4536-43CA-B015-21A2BB8EFFF7}
 		{003E74CA-5F3A-45F2-AC6B-D49D4EBD4BC6} = {D8F3DE71-CF9B-4B94-84F9-65E9348065BA}
+		{630EE27E-24EC-4264-87E2-77385D110B0F} = {AA53B6ED-1D55-4CD1-BABE-4C72C86CEF3C}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {19AE25AC-96F8-4052-8C98-7AE772E51807}

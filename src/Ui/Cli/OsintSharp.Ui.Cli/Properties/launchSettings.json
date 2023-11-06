@@ -1,0 +1,7 @@
+{
+  "profiles": {
+    "OsintSharp.Ui.Cli": {
+      "commandName": "Project"
+    }
+  }
+}

@@ -3,12 +3,13 @@ using System.Collections.Concurrent;
 
 namespace OsintSharp.Ui.Cli;
 
-internal class SocialNetwork
+internal class UrlsScanner
 {
     private readonly HttpClientHelper _httpClientHelper;
     private object _consoleLoggerLocker = new();
+    private object _fileLoggerLocker = new();
 
-    public SocialNetwork(HttpClientHelper httpClientHelper)
+    public UrlsScanner(HttpClientHelper httpClientHelper)
     {
         if (httpClientHelper is null) throw new ArgumentNullException(nameof(httpClientHelper));
 
@@ -29,22 +30,27 @@ internal class SocialNetwork
 
         if (httpMethod == HttpMethods.GET)
         {
-            for (int i = urlsCount; i > 0; Interlocked.Decrement(ref i))
+            for (int i = 1; i < urlsCount; Interlocked.Increment(ref i))
             {
-                using (var th = new Task(async () =>
+                var th = new Task(async () =>
                 {
                     await PrintResult(urlsArray[i - 1]);
-                }))
-                {
-                    th.Start();
-                    th.Wait(500);
-                }
+                });
+
+                th.Start();
+                th.Wait(300); // waits 300 ms
+
             }
         }
 
 
     }
 
+    /// <summary>
+    /// Writes output and log exceptions to file 
+    /// </summary>
+    /// <param name="url"></param>
+    /// <returns></returns>
     private async Task PrintResult(string url)
     {
         try
@@ -58,11 +64,17 @@ internal class SocialNetwork
         }
         catch (TimeoutException ex)
         {
-            ConsoleLogger.LogError($"[{url}]   {ex.Message}");
+            lock (_fileLoggerLocker)
+            {
+                FileLogger.Log($"[{url}]    {ex.Message}");
+            }
         }
         catch (Exception ex)
         {
-            ConsoleLogger.LogError($"[{url}]    {ex.Message}");
+            lock (_fileLoggerLocker)
+            {
+                FileLogger.Log($"[{url}]    {ex.Message}");
+            }
         }
     }
 }
