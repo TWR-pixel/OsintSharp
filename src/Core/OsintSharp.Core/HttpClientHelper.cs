@@ -8,7 +8,7 @@ public class HttpClientHelper
 
     public HttpClientHelper(HttpClientHandler handler)
     {
-        if (handler == null) throw new ArgumentNullException(nameof(handler));
+        ThrowHelper.ThrowIfArgumentNull(handler);
 
         Client = new HttpClient(handler, true);
     }
@@ -21,7 +21,7 @@ public class HttpClientHelper
     [MethodImpl(MethodImplOptions.AggressiveInlining)]
     public async Task<HttpResponseMessage> GetAsync(string url, bool catchException = true)
     {
-        if (string.IsNullOrWhiteSpace(url)) throw new ArgumentNullException(nameof(url));
+        ThrowHelper.ThrowIfArgumentNull(url);
 
         var msg = await Client.GetAsync(url);
         return msg;

@@ -2,13 +2,13 @@ using OsintSharp.Core.Factories;
 
 namespace OsintSharp.Core.Tests;
 
-public class HttpClientHelperFactoryTest
+public class HttpsClientHelperFactoryTest
 {
     #region NotNull
     [Fact]
     public void FactoryClientNotNull()
     {
-        var factory = new HttpClientHelperFactory();
+        var factory = new HttpsClientHelperFactory();
         var client = factory.Create();
 
         Assert.NotNull(client);
@@ -17,7 +17,7 @@ public class HttpClientHelperFactoryTest
     [Fact]
     public void FactoryClientClientNotNull()
     {
-        var factory = new HttpClientHelperFactory();
+        var factory = new HttpsClientHelperFactory();
         var client = factory.Create();
 
         Assert.NotNull(client.Client);
@@ -26,7 +26,7 @@ public class HttpClientHelperFactoryTest
     [Fact]
     public void FactoryClientHttpMessageNotNull()
     {
-        var factory = new HttpClientHelperFactory();
+        var factory = new HttpsClientHelperFactory();
         var client = factory.Create();
         var url = "https://www.google.com/";
 

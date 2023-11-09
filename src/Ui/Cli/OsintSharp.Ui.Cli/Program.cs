@@ -4,9 +4,6 @@ using OsintSharp.Core.Json;
 using OsintSharp.Ui.Cli;
 using System.Collections.Concurrent;
 
-//var cl = new HttpClientHelperFactory().Create();
-//var r = await cl._httpClient.GetStringAsync("https://api.ipify.org/");
-
 Console.ForegroundColor = ConsoleColor.Magenta;
 Console.WriteLine(Settings.Hello);
 Console.ResetColor();
@@ -14,7 +11,7 @@ Console.ResetColor();
 Console.Write("Enter username: ");
 var username = Console.ReadLine();
 
-var httpClientHelperFactory = new HttpClientHelperFactory();
+var httpClientHelperFactory = new HttpsClientHelperFactory();
 
 var userForSearch = new UserForSearch(username);
 
